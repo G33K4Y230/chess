@@ -1,6 +1,19 @@
 
 var spaces = []
 
+const generateSpaces = (color1, color2) => {
+    
+    var colorIndex = 0
+
+    for (let y = 1; y <= 8; y++) {
+        for (let x = 1; x <= 8; x++) {
+            new Space(x, y, colorIndex == 0 ? color1 : color2)
+            colorIndex = colorIndex == 0 ? 1 : 0
+        }
+        colorIndex = colorIndex == 0 ? 1 : 0
+    }
+}
+
 class Space {
 
   constructor(x, y, color) {

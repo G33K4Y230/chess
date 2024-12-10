@@ -23,24 +23,9 @@
 
             <script>
 
-                const colors = ["red-500", "blue-500"]
-                var colorIndex = 0
+               generateSpaces("sky-400", "sky-900")
 
-                for (let y = 1; y <= 8; y++) {
-                    for (let x = 1; x <= 8; x++) {
-                        new Space(x, y, colors[colorIndex])
-                        colorIndex = colorIndex == 0 ? 1 : 0
-                    }
-                    colorIndex = colorIndex == 0 ? 1 : 0
-                }
-
-                const piece = new Piece("bishop", 1, 1, "white")
-                new Piece("pawn", 3, 5, "black")
-                new Piece("knight", 5, 1, "white")
-
-                new Piece("queen", 5, 8, "black")
-
-                space.piece = piece
+                generatePieces()
 
             </script>
 
