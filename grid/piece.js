@@ -8,7 +8,6 @@ const generatePieces = () => {
         new Piece(order[x], x + 1, 1, "black")
         new Piece("pawn", x + 1, 2, "black")
         
-        
         new Piece(order[x], x + 1, 8, "white")
         new Piece("pawn", x + 1, 7, "white")
 
@@ -56,7 +55,10 @@ class Piece {
     generateImage() { 
         return "<img "
             + "src=\"img/chess-" + this._type + "-svgrepo-com" + (this._player == "white" ? "-invert" : "") + ".svg\""
-            + "class=\"max-w-[70%]\""
+            + "class=\""
+            + "max-w-[70%]" + " "
+            + "stroke-cyan-500" + " "
+            + "\""
             + "/>"
       }
 

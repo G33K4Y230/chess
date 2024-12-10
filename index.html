@@ -23,16 +23,7 @@
 
             <script>
 
-                const colors = ["red-500", "blue-500"]
-                var colorIndex = 0
-
-                for (let y = 1; y <= 8; y++) {
-                    for (let x = 1; x <= 8; x++) {
-                        new Space(x, y, colors[colorIndex])
-                        colorIndex = colorIndex == 0 ? 1 : 0
-                    }
-                    colorIndex = colorIndex == 0 ? 1 : 0
-                }
+               generateSpaces("sky-400", "sky-900")
 
                 generatePieces()
 
