@@ -66,6 +66,7 @@ class Space {
         + "class=\""
         + "flex justify-center items-center" + " "
         + "bg-" + this._color +  " "
+        + "hover:bg-" + this._color + "/50" + " "
         + "row-start-" + this._y + " "
         + "col-start-" + this._x
         + "\">"
