@@ -27,13 +27,18 @@ const getSpaceIndexByID = (id) => {
 class Space {
 
   constructor(x, y, color) {
-    this._x = Number(x);
-    this._y = Number(y);
+    
+    this._x = x;
+    this._y = y;
     this._color = color
     this._id = "space-" + this._x + "-" + this._y;
     this.generate()
-    this.generateEventListener()
+
+    const element = document.getElementById(this._id)
+    element.addEventListener("click", click);
+
     spaces.push(this)
+
   }
 
   get id() {
@@ -72,16 +77,18 @@ class Space {
 
   set piece(piece) {
     this._piece = piece
-    document.getElementById(this._id).innerHTML = this._piece != null ?
+    const element = document.getElementById(this._id)
+    element.innerHTML = this._piece != null ?
       this._piece.generateImage() :
       ""
+      
   }
 
   generate() {
     const data = "<div "
       + "id=\"" + this._id + "\"" + " "
       + "class=\""
-      + "flex justify-center items-center" + " "
+      + "w-[100%] h-[100%] flex justify-center items-center" + " "
       + "bg-" + this._color + " "
       + "hover:bg-" + this._color + "/50" + " "
       + "row-start-" + this._y + " "
@@ -90,11 +97,6 @@ class Space {
       + ">"
       + "</div>";
     document.write(data);
-  }
-
-  generateEventListener() {
-    const element = document.getElementById(this._id);
-    element.addEventListener("click", click);
   }
 
 }

@@ -56,11 +56,12 @@ class Piece {
     }
 
     generateImage() { 
+        //return null
         return "<img "
             + "id=\"" + this._id + "\" "
             + "src=\"img/chess-" + this._type + "-svgrepo-com" + (this._player == "white" ? "-invert" : "") + ".svg\" "
             + "class=\""
-            + "max-w-[70%]" + " "
+            + "max-w-[50%] max-h-[50%]" + " "
             + "\""
             + "/>"
       }
