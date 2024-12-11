@@ -17,6 +17,13 @@ const generateSpaces = (colour1, colour2) => {
   }
 }
 
+const getSpaceIndexByID = (id) => {
+  for (var i = 0; i < spaces.length; i++)
+    if (spaces[i].id == id) {
+      return i
+    }
+}
+
 class Space {
 
   constructor(x, y, color) {
@@ -93,17 +100,33 @@ class Space {
 }
 
 const click = (e) => {
-  if(e.target.getAttribute("id") != null && e.target.getAttribute("id").includes("space")) {
-    const id = e.target.getAttribute("id");
-    const element = document.getElementById(id);
-    const classList = "";
-    alert(id);
-    element.style.opacity = 0.5;
+
+  var id;
+
+  if (e.target.getAttribute("id") != null && e.target.getAttribute("id").includes("space")) {
+    id = e.target.getAttribute("id");
   } else {
-    const id = e.target.getAttribute("id");
-    const element = document.getElementById(id);
-    alert(element.parentElement.innerHTML);
-    element.parentElement.style.opacity = 0.5;
+    id = e.target.getAttribute("id");
+    id = document.getElementById(id).parentElement.id;
   }
+
+  const clickColor = "slate-900";
+
+  const space = spaces[getSpaceIndexByID(id)];
+  const element = document.getElementById(space.id);
+  if (element.classList.contains("isClicked")) {
+    element.classList.remove("bg-" + clickColor)
+    element.classList.add("bg-" + space.color)
+    element.classList.remove("hover:bg-" + clickColor + "/70")
+    element.classList.add("hover:bg-" + space.color + "/50")
+    element.classList.remove("isClicked")
+  } else {
+    element.classList.remove("bg-" + space.color);
+    element.classList.add("bg-" + clickColor);
+    element.classList.remove("hover:bg-" + space.color + "/50");
+    element.classList.add("hover:bg-" + clickColor + "/70");
+    element.classList.add("isClicked");
+  }
+
 }
 
