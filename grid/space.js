@@ -123,6 +123,8 @@ class Space {
 
       if (this._piece != null) {
         selectedPieceId = this._piece.id
+        const piece = pieces[getPieceIndexByID(selectedPieceId)]
+        piece.showMoves(true)
       }
 
     } else {
@@ -130,24 +132,15 @@ class Space {
       if (selectedPieceId.length > 0) {
         const piece = pieces[getPieceIndexByID(selectedPieceId)]
         piece.moveTo(this._x, this._y)
-
-
-        selectedPieceId = -1
+        selectedPieceId = ""
       }
-
 
       const element = document.getElementById(selectedSpaceId)
       const space = spaces[getSpaceIndexByID(selectedSpaceId)]
-      space.piece = null
       element.classList.add("bg-" + space.color)
-      selectedSpaceId = -1
-
+      selectedSpaceId = ""
     }
-
-
   }
-
-
 }
 
 const click = (e) => {

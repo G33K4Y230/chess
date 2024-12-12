@@ -34,6 +34,7 @@ class Piece {
         this._x = x;
         this._y = y;
         this._color = color;
+        this._moves = []
         spaces.forEach((space) => {
             if (space.x == this._x && space.y == this._y) {
                 space.piece = this
@@ -42,11 +43,12 @@ class Piece {
         pieces.push(this)
     }
 
-    get id() { return this._id }
-    get x() { return this._x }
-    get y() { return this._y }
-    get type() { return this._type }
-    get color() { return this._color }
+    get id() { return this._id; }
+    get x() { return this._x; }
+    get y() { return this._y; }
+    get type() { return this._type; }
+    get color() { return this._color; }
+    get moves() { return this._moves; }
 
     set id(id) { this._id = id }
 
@@ -66,6 +68,10 @@ class Piece {
         this._color = color
     }
 
+    set moves(moves) {
+        this._moves = moves;
+    }
+
     generateImage() {
 
         return "<img "
@@ -78,13 +84,31 @@ class Piece {
     }
 
     moveTo(x, y) {
-        
-        const id = "space-" + x + "-" + y
-        const element = document.getElementById(id)
-        const space = spaces[getSpaceIndexByID(id)]
-        space.piece = this
+
+        const id = "space-" + x + "-" + y;
+        const element = document.getElementById(id);
+        const space = spaces[getSpaceIndexByID(id)];
+        space.piece = this;
+
+        const oldId = "space-" + this._x + "-" + this._y;
+        const oldElement = document.getElementById(oldId);
+        const oldSpace = spaces[getSpaceIndexByID(oldId)];
+        oldSpace.piece = null;
+
+        this._x = x;
+        this._y = y;
 
         //document.getElementById(id).innerText = "";
+    }
+
+    showMoves(isVisible) {
+        switch (this._type) {
+            case "pawn":
+                alert("show pawn moves");
+                break;
+            default:
+                break
+        }
     }
 
 }
