@@ -99,7 +99,7 @@ class Space {
     const data = "<div "
       + "id=\"" + this._id + "\"" + " "
       + "class=\""
-      + "w-[100%] h-[100%] flex justify-center items-center" + " "
+      + "relative w-[100%] h-[100%] flex justify-center items-center" + " "
       + "bg-" + this._color + " "
       + "hover:bg-" + this._color + "/50" + " "
       + "row-start-" + this._y + " "
