@@ -84,16 +84,17 @@ class Piece {
     }
 
     moveTo(x, y) {
+        
+        const oldId = "space-" + this._x + "-" + this._y;
+        const oldElement = document.getElementById(oldId);
+        const oldSpace = spaces[getSpaceIndexByID(oldId)];
+        oldSpace.piece = null;
 
         const id = "space-" + x + "-" + y;
         const element = document.getElementById(id);
         const space = spaces[getSpaceIndexByID(id)];
         space.piece = this;
 
-        const oldId = "space-" + this._x + "-" + this._y;
-        const oldElement = document.getElementById(oldId);
-        const oldSpace = spaces[getSpaceIndexByID(oldId)];
-        oldSpace.piece = null;
 
         this._x = x;
         this._y = y;
@@ -101,14 +102,42 @@ class Piece {
         //document.getElementById(id).innerText = "";
     }
 
-    showMoves(isVisible) {
-        switch (this._type) {
+    getMoves() {
+
+        var moves = []
+    
+        switch(this._type) {
             case "pawn":
-                alert("show pawn moves");
+                const offsets = [
+                    { x: 0, y: 1 },
+                    { x: 0, y: 2 }
+                ]
+                for(let i = 0; i < offsets.length; i++) {
+                    moves.push(
+                        { 
+                            x: this._x + offsets[i].x, 
+                            y: this._y + offsets[i].y 
+                        }
+                    )
+                }
                 break;
             default:
-                break
+                break;
         }
+    
+        return moves;
+    }
+
+    showMoves(isVisible) {
+        var moves = this.getMoves()
+        moves.forEach((move) => {
+            const space = getSpaceIndexByPosition(move.x, move.y)
+            const element = document.getElementById(space.id)
+            element.innerText = "qq"
+            //alert("Position: " + move.x + ":" + move.y)
+            //alert(space.color)
+        })
     }
 
 }
+
