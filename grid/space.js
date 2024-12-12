@@ -2,6 +2,8 @@
 var spaces = []
 var colours = []
 
+var selectedSpaceId = ""
+
 const generateSpaces = (colour1, colour2) => {
 
   var colourIndex = 0
@@ -19,21 +21,35 @@ const generateSpaces = (colour1, colour2) => {
 
 const getSpaceIndexByID = (id) => {
   for (var i = 0; i < spaces.length; i++)
-    if (spaces[i].id == id) {
+    if (spaces[i].id == id)
       return i
-    }
+
+  return null;
+}
+
+const getSpaceIndexByPosition = (x, y) => {
+  for (var i = 0; i < spaces.length; i++)
+    if (spaces[i].x == x && spaces[i].y == y)
+      return spaces[i]
+
+  return null;
 }
 
 class Space {
 
   constructor(x, y, color) {
-    this._x = Number(x);
-    this._y = Number(y);
+
+    this._x = x;
+    this._y = y;
     this._color = color
     this._id = "space-" + this._x + "-" + this._y;
     this.generate()
-    this.generateEventListener()
+
+    const element = document.getElementById(this._id)
+    element.addEventListener("click", click);
+
     spaces.push(this)
+
   }
 
   get id() {
@@ -72,16 +88,18 @@ class Space {
 
   set piece(piece) {
     this._piece = piece
-    document.getElementById(this._id).innerHTML = this._piece != null ?
+    const element = document.getElementById(this._id)
+    element.innerHTML = this._piece != null ?
       this._piece.generateImage() :
       ""
+
   }
 
   generate() {
     const data = "<div "
       + "id=\"" + this._id + "\"" + " "
       + "class=\""
-      + "flex justify-center items-center" + " "
+      + "w-[100%] h-[100%] flex justify-center items-center" + " "
       + "bg-" + this._color + " "
       + "hover:bg-" + this._color + "/50" + " "
       + "row-start-" + this._y + " "
@@ -89,14 +107,40 @@ class Space {
       + "\" "
       + ">"
       + "</div>";
-    document.write(data);
+    if (document.getElementById(this._id) == null)
+      document.write(data);
   }
 
-  generateEventListener() {
-    const element = document.getElementById(this._id);
-    element.addEventListener("click", click);
-  }
+  setClicked(isClick) {
 
+    if (isClick) {
+      const element = document.getElementById(this._id)
+      element.classList.remove("bg-" + this._color)
+      element.classList.add("stroke-2");
+      element.classList.add("stroke-solid");
+      element.classList.add("stroke-black");
+      selectedSpaceId = this._id;
+
+      if (this._piece != null) {
+        selectedPieceId = this._piece.id
+        const piece = pieces[getPieceIndexByID(selectedPieceId)]
+        piece.showMoves(true)
+      }
+
+    } else {
+
+      if (selectedPieceId.length > 0) {
+        const piece = pieces[getPieceIndexByID(selectedPieceId)]
+        piece.moveTo(this._x, this._y)
+        selectedPieceId = ""
+      }
+
+      const element = document.getElementById(selectedSpaceId)
+      const space = spaces[getSpaceIndexByID(selectedSpaceId)]
+      element.classList.add("bg-" + space.color)
+      selectedSpaceId = ""
+    }
+  }
 }
 
 const click = (e) => {
@@ -110,23 +154,20 @@ const click = (e) => {
     id = document.getElementById(id).parentElement.id;
   }
 
-  const clickColor = "slate-900";
+  const index = getSpaceIndexByID(id);
+  const space = spaces[index];
 
-  const space = spaces[getSpaceIndexByID(id)];
-  const element = document.getElementById(space.id);
-  if (element.classList.contains("isClicked")) {
-    element.classList.remove("bg-" + clickColor)
-    element.classList.add("bg-" + space.color)
-    element.classList.remove("hover:bg-" + clickColor + "/70")
-    element.classList.add("hover:bg-" + space.color + "/50")
-    element.classList.remove("isClicked")
+  if (selectedSpaceId.length > 0) {
+    space.setClicked(false)
   } else {
-    element.classList.remove("bg-" + space.color);
-    element.classList.add("bg-" + clickColor);
-    element.classList.remove("hover:bg-" + space.color + "/50");
-    element.classList.add("hover:bg-" + clickColor + "/70");
-    element.classList.add("isClicked");
+    space.setClicked(true)
   }
 
+  var type = "";
+  try { type = space.piece.type; }
+  catch (err) { }
+  if (type.length == 0)
+    type = "No Piece"
+  //alert(type)
 }
 
