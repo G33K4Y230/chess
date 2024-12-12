@@ -158,17 +158,12 @@ const click = (e) => {
   const index = getSpaceIndexByID(id);
   const space = spaces[index];
 
-  if (selectedSpaceId.length > 0) {
-    space.setClicked(false)
-  } else {
-    space.setClicked(true)
+    if (selectedSpaceId.length > 0) {
+      space.setClicked(false)
+      togglePlayer()
+    } else {
+      if(currentPlayer == space.piece.player.color) {
+        space.setClicked(true)
+      }
+    }
   }
-
-  var type = "";
-  try { type = space.piece.type; }
-  catch (err) { }
-  if (type.length == 0)
-    type = "No Piece"
-  //alert(type)
-}
-
