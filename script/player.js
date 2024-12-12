@@ -1,5 +1,7 @@
 const players =  []
 
+var currentPlayer = ""
+
 const generatePlayers = () => {
     players.push(
         new Player(
@@ -13,6 +15,12 @@ const generatePlayers = () => {
             "white"
         )
     )
+
+    currentPlayer = players[0].color
+}
+
+const togglePlayer = () => {
+    currentPlayer = (currentPlayer == players[0].color ? players[1].color : players[0].color)
 }
 
 class Player{
