@@ -154,7 +154,7 @@ class Piece {
             + "id=\"" + this._id + "\" "
             + "src=\"img/chess-" + this._type + "-svgrepo-com" + (this._player.position == "bottom" ? "-invert" : "") + ".svg\" "
             + "class=\""
-            + "max-w-[60%] max-h-[60%]" + " "
+            + "absolute max-w-[60%] max-h-[60%]" + " "
             + "\""
             + "/>"
     }
@@ -186,7 +186,7 @@ class Piece {
             element.innerHTML = space.piece == null ? "" : space.piece.generateImage()
             if(isVisible)
 		if(space.piece == null || space.piece.player.position != this._player.position)
-		    element.innerHTML += "<img id = \"circle-" + space.x + "-" + space.y + "\" class=\" max-w-[20%]\" src=\"img/circle.svg\"/>";
+		    element.innerHTML += "<img id = \"circle-" + space.x + "-" + space.y + "\" class=\"fill-red-500 absolute max-w-[20%]\" src=\"img/circle.svg\"/>";
                 
         })
     }
