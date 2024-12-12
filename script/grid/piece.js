@@ -183,9 +183,11 @@ class Piece {
         moves.forEach((move) => {
             const space = getSpaceIndexByPosition(move.x, move.y)
             const element = document.getElementById(space.id)
-            element.innerHTML = isVisible ? 
-                "qq" :
-                space.piece == null ? "" : space.piece.generateImage()
+            element.innerHTML = space.piece == null ? "" : space.piece.generateImage()
+            if(isVisible)
+		if(space.piece == null || space.piece.player.position != this._player.position)
+		    element.innerHTML += "<img id = \"circle-" + space.x + "-" + space.y + "\" class=\" max-w-[20%]\" src=\"img/circle.svg\"/>";
+                
         })
     }
 
@@ -216,9 +218,6 @@ class Piece {
             this._y = y;
         }
 
-        
-
-        //document.getElementById(id).innerText = "";
     }
 
 
