@@ -25,6 +25,83 @@ const getPieceIndexByID = (id) => {
     return false
 }
 
+const getOffsets = (type, player) => {
+
+    var offsets = []
+    
+    switch (type) {
+    case "pawn":
+        offsets.push( { x: 0, y: 1 * (player.position == "top" ? 1 : -1) } )
+        offsets.push( { x: 0, y: 2 * (player.position == "top" ? 1 : -1) } )
+	break;
+    case "knight":
+	var o = [
+	    {x: -1, y: -2},
+	    {x: -1, y:  2},
+	    {x:  1, y: -2},
+	    {x:  1, y:  2},
+	    {x: -2, y: -1},
+	    {x: -2, y:  1},
+	    {x:  2, y: -1},
+	    {x:  2, y:  1}
+	]
+	for(var i = 0; i < o.length; i++)
+	    offsets.push(o[i]);
+	break;
+    case "bishop":
+	var normalizedOffsets = [
+	    {x: -1, y: -1},
+	    {x: -1, y:  1},
+	    {x:  1, y: -1},
+	    {x:  1, y:  1}
+	]
+	normalizedOffsets.forEach((o) => {
+	    for(var i = 1; i <= 7; i++) {
+		offsets.push({
+		    x: o.x * i,
+		    y: o.y * i
+		})
+	    }
+	})
+	break;
+    case "castle":
+	var normalizedOffsets = [
+	    {x: -1, y:  0},
+	    {x:  0, y: -1},
+	    {x:  0, y:  1},
+	    {x:  1, y:  0}
+	]
+	normalizedOffsets.forEach((o) => {
+	    for(var i = 1; i <= 7; i++) {
+		offsets.push({
+		    x: o.x * i,
+		    y: o.y * i
+		})
+	    }
+	})
+	break;
+    case "queen":
+	var bishopOffsets = getOffsets("bishop", null)
+	var castleOffsets = getOffsets("castle", null)
+	bishopOffsets.forEach((o) => { offsets.push(o);	});
+	castleOffsets.forEach((o) => { offsets.push(o); });
+	break;
+    case "king":
+	var normalizedOffsets = [
+    	    { x: -1, y:  0 },
+	    { x:  0, y: -1 },
+	    { x:  0, y:  1 },
+	    { x:  1, y:  0 }
+	];
+	normalizedOffsets.forEach((o) => { offsets.push(o); })
+	break;
+    default:
+	break;
+    }
+
+    return offsets;
+}
+
 class Piece {
 
     constructor(type, x, y, player) {
@@ -86,46 +163,7 @@ class Piece {
     getMoves() {
 
         var moves = []
-        var offsets = []
-
-        switch (this._type) {
-	case "pawn":
-            offsets.push( { x: 0, y: 1 * (this._player.position == "top" ? 1 : -1) } )
-            offsets.push( { x: 0, y: 2 * (this._player.position == "top" ? 1 : -1) } )
-	    break;
-	case "knight":
-	    var o = [
-		{x: -1, y: -2},
-		{x: -1, y:  2},
-		{x:  1, y: -2},
-		{x:  1, y:  2},
-		{x: -2, y: -1},
-		{x: -2, y:  1},
-		{x:  2, y: -1},
-		{x:  2, y:  1}
-	    ]
-	    for(var i = 0; i < o.length; i++)
-		offsets.push(o[i]);
-	    break;
-	case "bishop":
-	    var normalizedOffsets = [
-		{x: -1, y: -1},
-		{x: -1, y:  1},
-		{x:  1, y: -1},
-		{x:  1, y:  1}
-	    ]
-	    normalizedOffsets.forEach((o) => {
-		for(var i = 1; i <= 7; i++) {
-		    offsets.push({
-			x: o.x * i,
-			y: o.y * i
-		    })
-		}
-	    })
-	    
-	default:
-	    break;
-	}
+        var offsets = getOffsets(this._type, this._player)
 	
         for (var i = 0; i < offsets.length; i++) {
             var move = {
