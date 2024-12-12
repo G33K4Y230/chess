@@ -131,7 +131,8 @@ class Space {
 
       if (selectedPieceId.length > 0) {
         const piece = pieces[getPieceIndexByID(selectedPieceId)]
-        piece.moveTo(this._x, this._y)
+        piece.showMoves(false)
+        piece.tryMoveTo(this._x, this._y)
         selectedPieceId = ""
       }
 

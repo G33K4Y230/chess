@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html lang="en">
 
@@ -5,9 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chess</title>
-    <script src="grid/space.js"></script>
-    <script src="grid/piece.js"></script>
-    <script src="grid/click.js"></script>
+    <script src="script/player.js"></script>
+    <script src="script/grid/space.js"></script>
+    <script src="script/grid/piece.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
@@ -16,14 +17,16 @@
 
     <div class="bg-sky-600/10 w-[100vw] h-[100vh] flex justify-center items-center">
 
-        <div class="border-solid border-2 border-black transition-all
+        <div class="border-solid border-2 border-black 
                 grid grid-rows-8 grid-cols-8
-                max-[640px]:w-[480px] max-[640px]:h-[480px]
-                min-[640px]:w-[640px] min-[640px]:h-[640px]
-                min-[1024px]:w-[800px] min-[1024px]:h-[800px]">
+                max-sm:w-[320px] max-sm:h-[320px]
+		sm:w-[420px] sm:h-[420px]
+                md:w-[480px] md:h-[480px]
+                lg:w-[640px] lg:h-[640px]">
 
             <script>
 
+                generatePlayers()
                 generateSpaces("sky-400", "sky-900")
                 generatePieces()
 
@@ -32,9 +35,6 @@
         </div>
 
     </div>
-
-    <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg fill="#000000" class="w-[50px]" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5,17a1,1,0,0,0-.97.758l-1,4A1,1,0,0,0,4,23H20a1,1,0,0,0,.97-1.242l-1-4A1,1,0,0,0,19,17H16.9l-.778-7H18a1,1,0,0,0,1-1V2a1,1,0,0,0-1-1H14a1,1,0,0,0-1,1V4H11V2a1,1,0,0,0-1-1H6A1,1,0,0,0,5,2V9a1,1,0,0,0,1,1H7.883l-.778,7ZM7,8V3H9V5a1,1,0,0,0,1,1h4a1,1,0,0,0,1-1V3h2V8Zm7.883,9H9.117L9.9,10h4.21Zm3.336,2,.5,2H5.281l.5-2Z"/></svg>
     
 </body>
 
