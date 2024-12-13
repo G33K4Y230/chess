@@ -20,7 +20,9 @@ const generatePlayers = () => {
 }
 
 const togglePlayer = () => {
-    currentPlayer = (currentPlayer == players[0].color ? players[1].color : players[0].color)
+    const nextPlayersIndex = (currentPlayer == players[0].color ? 1 : 0)
+    alert("Toggling player to: " + players[nextPlayersIndex].color)
+    currentPlayer = players[nextPlayersIndex].color
 }
 
 class Player{

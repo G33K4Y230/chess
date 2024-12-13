@@ -186,8 +186,7 @@ class Piece {
             element.innerHTML = space.piece == null ? "" : space.piece.generateImage()
             if(isVisible)
 		if(space.piece == null || space.piece.player.position != this._player.position)
-		    element.innerHTML += "<img id = \"circle-" + space.x + "-" + space.y + "\" class=\"fill-red-500 absolute max-w-[20%]\" src=\"img/circle.svg\"/>";
-                
+		    element.innerHTML += "<img id = \"circle-" + space.x + "-" + space.y + "\" class=\"fill-red-500 absolute max-w-[20%]\" src=\"img/circle.svg\"/>";   
         })
     }
 
@@ -207,6 +206,7 @@ class Piece {
             const oldId = "space-" + this._x + "-" + this._y;
             const oldElement = document.getElementById(oldId);
             const oldSpace = spaces[getSpaceIndexByID(oldId)];
+
             oldSpace.piece = null;
     
             const id = "space-" + x + "-" + y;

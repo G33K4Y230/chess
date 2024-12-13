@@ -158,12 +158,15 @@ const click = (e) => {
   const index = getSpaceIndexByID(id);
   const space = spaces[index];
 
-    if (selectedSpaceId.length > 0) {
-      space.setClicked(false)
+  if (selectedSpaceId.length > 0) {
+    space.setClicked(false)
+    if(selectedSpaceId != this._id) {
+      alert(selectedSpaceId + "|" + this._id)
       togglePlayer()
-    } else {
-      if(currentPlayer == space.piece.player.color) {
-        space.setClicked(true)
-      }
+    }
+  } else {
+    if (space.piece != null && space.piece.player.color == currentPlayer) {
+      space.setClicked(true)
     }
   }
+}
