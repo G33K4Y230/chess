@@ -16,7 +16,7 @@ const generatePlayers = () => {
         )
     )
 
-    currentPlayer = players[0].color
+    currentPlayer = players[1].color
 }
 
 const togglePlayer = () => {
